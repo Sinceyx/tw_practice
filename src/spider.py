@@ -8,7 +8,7 @@ import requests
 from extractor import extract
 
 
-class ArealtyWebSpier(object):
+class ArealtyWebSpider(object):
     __url = 'https://www.atrealty.com.au/wp-json/hi-api/v1/properties?page=1&per_page=12&listing=residential&price_type=sale&tags_field=&search-id=983&auction=&inspection=&location=&sub_type=any&min_price=&max_price=&min_bedrooms=&max_bedrooms=&min_bathrooms=&max_bathrooms=&parking=&surrounding_suburbs=1&suburb=&state=&latlng='
     page_size = 5
     data_array = {}
@@ -22,14 +22,14 @@ class ArealtyWebSpier(object):
         return json.loads(jq.compile('.data').input(result).text())
 
 
-def extract_address(arealty_web_spider:ArealtyWebSpier):
+def extract_address(arealty_web_spider:ArealtyWebSpider):
     address_array = []
     for item in arealty_web_spider.data_array:
         address_array.append(extract(item, '.name'))
     return address_array
 
 
-def extract_house_address_infos(arealty_web_spider: ArealtyWebSpier):
+def extract_house_address_infos(arealty_web_spider: ArealtyWebSpider):
     house_info_array = []
     for item in arealty_web_spider.data_array:
         permalink = extract(item, '.permalink')
