@@ -72,9 +72,4 @@ class HouseAddressInformation(object):
         }.__str__()
 
 
-# spider = ArealtyWebSpier(5)
-# print(extract_address(spider))
-# house_info_array = extract_house_address_infos(spider)
-# for item in house_info_array:
-#     print(item)
 
