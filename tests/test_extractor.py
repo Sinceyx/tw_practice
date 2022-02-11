@@ -1,6 +1,11 @@
+import sys
+import os
+# 把当前文件所在文件夹的父文件夹路径加入到PYTHONPATH
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import unittest
 import json
-from extractor import extract
+from src.extractor import extract
 
 
 def read_json_file(file_path):
