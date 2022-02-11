@@ -10,7 +10,7 @@ import unittest
 from src.hello_world import say_hi
 
 
-class AppTestCase(unittest.TestCase):
+class TestCaseOfHelloWorld(unittest.TestCase):
     def test_say_hi(self):
         """
             function test of say_hi
