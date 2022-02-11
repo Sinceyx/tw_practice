@@ -2,34 +2,33 @@
     A program to capture data from website: https://www.atrealty.com.au/
 """
 import re
-import jq
 import json
 import requests
 from extractor import extract
 
 
-class ArealtyWebSpider(object):
+class AtrealtyWebSpider(object):
     __url = 'https://www.atrealty.com.au/wp-json/hi-api/v1/properties?page=1&per_page=12&listing=residential&price_type=sale&tags_field=&search-id=983&auction=&inspection=&location=&sub_type=any&min_price=&max_price=&min_bedrooms=&max_bedrooms=&min_bathrooms=&max_bathrooms=&parking=&surrounding_suburbs=1&suburb=&state=&latlng='
     page_size = 5
     data_array = {}
 
-    def __init__(self, p_s):
-        self.page_size = p_s
-        self.data_array = self.__capture_product_infos_from_atrealty(p_s)
+    def __init__(self, p):
+        self.page_size = p
+        self.data_array = self.__capture_product_infos_from_atrealty(p)
 
     def __capture_product_infos_from_atrealty(self, page_size: int):
         result = json.loads(requests.get(self.__url.replace('per_page=12', 'per_page='+str(page_size))).text)
-        return json.loads(jq.compile('.data').input(result).text())
+        return extract(result, '.data')
 
 
-def extract_address(arealty_web_spider:ArealtyWebSpider):
+def extract_address(arealty_web_spider: AtrealtyWebSpider):
     address_array = []
     for item in arealty_web_spider.data_array:
         address_array.append(extract(item, '.name'))
     return address_array
 
 
-def extract_house_address_infos(arealty_web_spider: ArealtyWebSpider):
+def extract_house_address_infos(arealty_web_spider: AtrealtyWebSpider):
     house_info_array = []
     for item in arealty_web_spider.data_array:
         permalink = extract(item, '.permalink')
@@ -72,4 +71,4 @@ class HouseAddressInformation(object):
         }.__str__()
 
 
-
+print(extract_address(AtrealtyWebSpider(5)))
