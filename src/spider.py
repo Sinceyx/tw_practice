@@ -8,7 +8,10 @@ from extractor import extract
 
 
 class AtrealtyWebSpider(object):
-    __url = 'https://www.atrealty.com.au/wp-json/hi-api/v1/properties?page=1&per_page=12&listing=residential&price_type=sale&tags_field=&search-id=983&auction=&inspection=&location=&sub_type=any&min_price=&max_price=&min_bedrooms=&max_bedrooms=&min_bathrooms=&max_bathrooms=&parking=&surrounding_suburbs=1&suburb=&state=&latlng='
+    __url = 'https://www.atrealty.com.au/wp-json/hi-api/v1/properties?page=1&per_page=12&listing=residential' \
+            '&price_type=sale&tags_field=&search-id=983&auction=&inspection=&location=&sub_type=any&min_price' \
+            '=&max_price=&min_bedrooms=&max_bedrooms=&min_bathrooms=&max_bathrooms=&parking=&surrounding_suburbs=1' \
+            '&suburb=&state=&latlng= '
     page_size = 5
     data_array = {}
 
@@ -29,16 +32,17 @@ def extract_address(arealty_web_spider: AtrealtyWebSpider):
 
 
 def extract_house_address_infos(arealty_web_spider: AtrealtyWebSpider):
-    house_info_array = []
+    state_name_array = []
+    postal_codes_array = []
+    permalink_array = []
     for item in arealty_web_spider.data_array:
         permalink = extract(item, '.permalink')
+        permalink_array.append(permalink)
         permalink_pattern = re.compile('/?[^./][0-9a-z-]*/?$')
         permalink_regex_search_result = permalink_pattern.search(permalink).group().replace('/', '')
-        house_address_info = HouseAddressInformation(__extract_state_name_from_permalink(permalink_regex_search_result),
-                                                     __extract_postal_code_from_permalink(permalink_regex_search_result),
-                                                     permalink
-                                                     )
-        house_info_array.append(house_address_info)
+        state_name_array.append(__extract_state_name_from_permalink(permalink_regex_search_result))
+        postal_codes_array.append(__extract_postal_code_from_permalink(permalink_regex_search_result))
+    house_info_array = {'state_names': state_name_array, 'postal_codes': postal_codes_array, 'permalinks': permalink_array }
     return house_info_array
 
 
@@ -52,23 +56,3 @@ def __extract_postal_code_from_permalink(permalink: str):
     postal_code_pattern = re.compile('[0-9]{4}-[0-9]{5}')
     search_result = postal_code_pattern.search(permalink).group()
     return search_result
-
-
-class HouseAddressInformation(object):
-    state_name = ''
-    postal_code = ''
-    __permalink = ''
-    def __init__(self, s, p, l):
-        self.state_name = s
-        self.postal_code = p
-        self.__permalink = l
-
-    def __str__(self):
-        return {
-            'permalink': self.__permalink,
-            'state_name': self.state_name,
-            'postal_code': self.postal_code
-        }.__str__()
-
-
-print(extract_address(AtrealtyWebSpider(5)))
