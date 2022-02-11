@@ -1,9 +1,6 @@
-"""
-    unit_test for app.say_hi function
-"""
 import sys
 import os
-# 把当前文件所在文件夹的父文件夹路径加入到PYTHONPATH
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import unittest
@@ -17,7 +14,7 @@ class TestCaseOfHelloWorld(unittest.TestCase):
         """
         name = "Xin.Yu"
         expected = "Hello " + name
-        self.assertEqual(expected, say_hi(name))  # add assertion here
+        self.assertEqual(expected, say_hi(name))
 
 
 
