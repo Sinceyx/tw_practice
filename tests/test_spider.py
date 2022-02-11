@@ -9,12 +9,10 @@ import spider as sp
 
 class TestSpider(unittest.TestCase):
 
-	def test_capture_house_infos_from_atrealty(self):
+	def test_extract_house_address_infos(self):
 		self.assertEqual(True, False)  # add assertion here
 
 	def test_extract_address(self):
 		sp.extract_address()
+		self.assertEqual(True, False)  # add assertion here
 
-
-	def test_extract_address(self):
-		sp.extract_address()
