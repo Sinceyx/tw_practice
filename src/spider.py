@@ -51,8 +51,8 @@ def __parse_house_number(address_str: str):
     return house_number
 
 
-def __parse_other_part(s: str):
-    return re.compile('[A-Z][A-Z-]*-[0-9]{4}').search(s).group().replace('-', ' ')
+def __parse_other_part(address_str: str):
+    return re.compile('[A-Z][A-Z-]*-[0-9]{4}').search(address_str).group().replace('-', ' ')
 
 
 print(crawl())
