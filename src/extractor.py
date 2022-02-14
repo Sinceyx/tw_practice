@@ -8,4 +8,3 @@ def extract(dic: dict, jq_path: str):
         If the path does not exist, return NONE
     """
     return json.loads(jq.compile(jq_path).input(dic).text())
-
