@@ -44,8 +44,8 @@ def __format_house_address(address_array: list):
     return result_address_array
 
 
-def __parse_house_number(s: str):
-    house_number = re.compile('^[0-9]?-?[0-9]+').search(s).group()
+def __parse_house_number(address_str: str):
+    house_number = re.compile('^[0-9]?-?[0-9]+').search(address_str).group()
     if '-' in house_number:
         return 'UNIT ' + house_number.replace('-', ' ')
     return house_number
