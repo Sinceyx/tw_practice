@@ -3,7 +3,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import unittest
-from spider import crawl
+from src.spider import crawl
 
 
 class TestSpider(unittest.TestCase):
@@ -18,6 +18,7 @@ class TestSpider(unittest.TestCase):
 		expected_size = 5
 		actual_size = len(call_return)
 		self.assertEqual(expected_size, actual_size)
+
 
 
 

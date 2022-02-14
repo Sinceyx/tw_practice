@@ -3,8 +3,11 @@
 """
 import re
 import json
-
 import requests
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from extractor import extract
 
 
@@ -52,4 +55,5 @@ def __parse_other_part(s: str):
     return re.compile('[A-Z][A-Z-]*-[0-9]{4}').search(s).group().replace('-', ' ')
 
 
+print(crawl())
 
