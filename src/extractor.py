@@ -1,5 +1,5 @@
-import jq
 import json
+import jq
 
 
 def extract(dic: dict, jq_path: str):
