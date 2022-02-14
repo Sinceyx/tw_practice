@@ -1,12 +1,13 @@
 """
     A program to capture data from website: https://www.atrealty.com.au/
 """
-import re
-import json
-import requests
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+import re
+import json
+import requests
+
 
 from extractor import extract
 
